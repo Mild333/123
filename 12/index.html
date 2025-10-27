@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การแจ้งเตือน</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Noto Sans Thai Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans Thai', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-pink': '#DB1C83',
+                        'light-pink': '#f8bbd0',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans bg-gray-100 text-gray-800">
+
+    <!-- ส่วนหัว -->
+    <header class="bg-primary-pink text-white text-center p-4 text-2xl font-bold shadow-lg">
+        <h1>การแจ้งเตือน</h1>
+    </header>
+
+    <!-- เมนู -->
+    <nav class="menu-scroll flex overflow-x-auto flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 bg-primary-pink p-3 shadow-md">
+        <button class="flex-shrink-0 bg-white text-primary-pink rounded-full px-4 py-2 font-medium cursor-pointer transition active hover:bg-pink-100 shadow-md">ทั้งหมด</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">ประกาศ</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">เมนูใหม่</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">โปรโมชั่น</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">สุขภาพ</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">การชำระเงิน</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">กฎระเบียบ</button>
+    </nav>
+
+    <!-- ช่องค้นหา -->
+    <section class="flex items-center justify-center p-4 bg-primary-pink pt-0 pb-4 shadow-xl mb-4 rounded-b-3xl">
+        <div class="flex items-center w-full max-w-4xl">
+            <input 
+                type="text" 
+                placeholder="การแจ้งเตือน..." 
+                class="flex-1 px-4 py-2 rounded-full border-2 border-white outline-none focus:ring-white focus:border-white transition placeholder-gray-400 text-gray-800 bg-white shadow-inner"
+            >
+            <button class="ml-3 bg-white text-primary-pink rounded-full px-4 py-2 whitespace-nowrap font-medium transition hover:bg-pink-100 read-all shadow-md">
+                <span class="hidden sm:inline">✔</span> อ่านทั้งหมด
+            </button>
+        </div>
+    </section>
+
+    <!-- รายการการแจ้งเตือน -->
+    <main class="notifications p-4 pt-0 mx-auto max-w-4xl">
+
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl shadow-lg p-5 mb-5 transition hover:shadow-xl cursor-pointer notification-card" data-status="unread">
+            <div class="flex items-start justify-between flex-wrap space-x-2">
+                <h2 class="text-lg font-semibold flex-1 mb-1 text-primary-pink">ยินดีต้อนรับผู้ใช้ระบบข่าวสารใหม่</h2>
+                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 new-badge">ใหม่</span>
+            </div>
+            <p class="text-gray-600 mt-1 mb-3 text-sm">เราเปลี่ยนปรับประสบการณ์ข่าวสารใหม่ “เร็วขึ้น อ่านง่ายขึ้น” พร้อมฟังก์ชันหมวดหมู่และการค้นหาที่หลากหลายกว่าเดิม</p>
+            <div class="flex justify-between items-center text-sm text-gray-500 border-t pt-3 mt-3 border-gray-100">
+                <span class="flex items-center text-gray-500">
+                    <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <span class="count-value font-semibold text-gray-700">1</span> บันทึก
+                </span>
+                <span class="user-save-toggle cursor-pointer p-1 -m-1 rounded-full hover:bg-pink-100 transition" data-saved="false">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.54 1.118l-3.976-2.888a1 1 0 00-1.175 0l-3.976 2.888c-.784.57-1.838-.197-1.539-1.118l1.519-4.674a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                    </svg>
+                </span>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl shadow-lg p-5 mb-5 transition hover:shadow-xl cursor-pointer notification-card" data-status="unread">
+            <img src="https://placehold.co/800x200/DB1C83/ffffff?text=Promotion+Image" alt="ภาพโปรโมชั่น"
+                class="w-full h-auto object-cover rounded-lg mb-3 shadow-sm">
+            <div class="flex items-start justify-between flex-wrap space-x-2">
+                <h2 class="text-lg font-semibold flex-1 mb-1 text-primary-pink">โปรโมชั่นสุดพิเศษ</h2>
+                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 new-badge">ใหม่</span>
+            </div>
+            <p class="text-gray-600 mt-1 mb-3 text-sm">ลดราคาสินค้า 20% ทุกหมวดในสัปดาห์นี้! พร้อมรับของขวัญสุดพิเศษเมื่อสั่งครบ 500 บาท</p>
+            <div class="flex justify-between items-center text-sm text-gray-500 border-t pt-3 mt-3 border-gray-100">
+                <span class="flex items-center text-gray-500">
+                    <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <span class="count-value font-semibold text-gray-700">1</span> บันทึก
+                </span>
+                <span class="user-save-toggle cursor-pointer p-1 -m-1 rounded-full hover:bg-pink-100 transition" data-saved="false">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.54 1.118l-3.976-2.888a1 1 0 00-1.175 0l-3.976 2.888c-.784.57-1.838-.197-1.539-1.118l1.519-4.674a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                    </svg>
+                </span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+</body>
+</html>
