@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การแจ้งเตือน</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Noto Sans Thai Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans Thai', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-pink': '#DB1C83', // Primary color updated to DB1C83
+                        'light-pink': '#f8bbd0', // Retaining original light pink for secondary use
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for menu on mobile (as per original CSS intention) */
+        .menu-scroll {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .menu-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        /* Animation for click feedback */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .animate-pulse-once {
+            animation: pulse 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100 text-gray-800">
+
+    <!-- ส่วนหัว (Header) - ลบมุมโค้งด้านล่างออก -->
+    <header class="bg-primary-pink text-white text-center p-4 text-2xl font-bold shadow-lg">
+        <h1>การแจ้งเตือน</h1>
+        <!-- เพิ่มปุ่มลูกศรย้อนกลับและปุ่มรีเฟรช ตามภาพประกอบ -->
+        <div class="absolute top-4 left-4 cursor-pointer hover:opacity-80 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        </div>
+        <div class="absolute top-4 right-4 cursor-pointer hover:opacity-80 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m15.356 2H20m-4.04 4.04L13 10m0 0l-3.04 3.04M14 10h-2m2 0v2"></path></svg>
+        </div>
+    </header>
+
+    <!-- เมนู (Menu) - พื้นหลังสีชมพูต่อเนื่อง ไม่มีมุมโค้ง -->
+    <nav class="menu-scroll flex overflow-x-auto flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 bg-primary-pink p-3 shadow-md">
+        <!-- Buttons: Active button uses white text on pink background for contrast -->
+        <button class="flex-shrink-0 bg-white text-primary-pink rounded-full px-4 py-2 font-medium cursor-pointer transition active hover:bg-pink-100 shadow-md">ทั้งหมด</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">ประกาศ</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">เมนูใหม่</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">โปรโมชั่น</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">สุขภาพ</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">การชำระเงิน</button>
+        <button class="flex-shrink-0 bg-light-pink text-gray-800 rounded-full px-4 py-2 font-medium cursor-pointer transition hover:bg-pink-300">กฎระเบียบ</button>
+    </nav>
+
+    <!-- ช่องค้นหา (Search Section) - พื้นหลังสีชมพูต่อเนื่อง และมีมุมโค้งด้านล่าง -->
+    <section class="flex items-center justify-center p-4 bg-primary-pink pt-0 pb-4 shadow-xl mb-4 rounded-b-3xl">
+        <div class="flex items-center w-full max-w-4xl">
+            <input 
+                type="text" 
+                placeholder="ค้นหาการแจ้งเตือน..." 
+                class="flex-1 px-4 py-2 rounded-full border-2 border-white outline-none focus:ring-white focus:border-white transition placeholder-gray-400 text-gray-800 bg-white shadow-inner"
+            >
+            <!-- ปุ่มอ่านทั้งหมดปรับให้เป็นสีขาวเพื่อตัดกับพื้นหลังชมพู -->
+            <button class="ml-3 bg-white text-primary-pink rounded-full px-4 py-2 whitespace-nowrap font-medium transition hover:bg-pink-100 read-all shadow-md">
+                <span class="hidden sm:inline">✔</span> อ่านทั้งหมด
+            </button>
+        </div>
+    </section>
+
+    <!-- รายการการแจ้งเตือน (Notifications List) -->
+    <main class="notifications p-4 pt-0 mx-auto max-w-4xl">
+
+        <!-- Card 1: ข้อความธรรมดา -->
+        <div class="bg-white rounded-xl shadow-lg p-5 mb-5 transition hover:shadow-xl cursor-pointer notification-card" data-status="unread">
+            <div class="flex items-start justify-between flex-wrap space-x-2">
+                <h2 class="text-lg font-semibold flex-1 mb-1 text-primary-pink">อินสตัสต้อนรับผู้ใช้ระบบข่าวสารใหม่</h2>
+                <!-- เพิ่มคลาส new-badge เพื่อให้ JS หาและลบได้ -->
+                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 new-badge">ใหม่</span>
+            </div>
+            <p class="text-gray-600 mt-1 mb-3 text-sm">เราเปลี่ยนปรับประสบการณ์ข่าวสารใหม่ “เร็วขึ้น อ่านง่ายขึ้น” พร้อมฟังก์ชันหมวดหมู่และการค้นหาที่หลากหลายกว่าเดิม</p>
+            
+            <!-- ส่วนท้ายที่แยกซ้าย-ขวา -->
+            <div class="flex justify-between items-center text-sm text-gray-500 border-t pt-3 mt-3 border-gray-100">
+                
+                <!-- ซ้าย: ดาวแสดงจำนวนบันทึก (Popularity Counter) -->
+                <span class="flex items-center text-gray-500">
+                    <!-- Star for display only (filled yellow) -->
+                    <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <span class="count-value font-semibold text-gray-700">1</span> บันทึก
+                </span>
+                
+                <!-- ขวา: ดาวสำหรับกดบันทึก/ยกเลิก (User Save Toggle) -->
+                <span class="user-save-toggle cursor-pointer p-1 -m-1 rounded-full hover:bg-pink-100 transition" data-saved="false">
+                    <!-- Outlined Star SVG for the unsaved state -->
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.54 1.118l-3.976-2.888a1 1 0 00-1.175 0l-3.976 2.888c-.784.57-1.838-.197-1.539-1.118l1.519-4.674a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                </span>
+            </div>
+        </div>
+
+        <!-- Card 2: พร้อมรูปภาพ -->
+        <div class="bg-white rounded-xl shadow-lg p-5 mb-5 transition hover:shadow-xl cursor-pointer notification-card" data-status="unread">
+            <div class="flex flex-col">
+                <!-- Placeholder Image (since external files are not allowed) -->
+                <img 
+                    src="https://placehold.co/800x200/DB1C83/ffffff?text=Promotion+Image" 
+                    alt="ภาพโปรโมชั่น" 
+                    class="w-full h-auto object-cover rounded-lg mb-3 shadow-sm"
+                    onerror="this.style.display='none'; this.after(document.createTextNode(' [ภาพโปรโมชั่น] '));"
+                >
+
+                <div class="flex items-start justify-between flex-wrap space-x-2">
+                    <h2 class="text-lg font-semibold flex-1 mb-1 text-primary-pink">โปรโมชั่นสุดพิเศษ</h2>
+                    <!-- เพิ่มคลาส new-badge เพื่อให้ JS หาและลบได้ -->
+                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 new-badge">ใหม่</span>
+                </div>
+            </div>
+            
+            <p class="text-gray-600 mt-1 mb-3 text-sm">ลดราคาสินค้า 20% ทุกหมวดในสัปดาห์นี้! พร้อมรับของขวัญสุดพิเศษเมื่อสั่งครบ 500 บาท</p>
+            
+            <!-- ส่วนท้ายที่แยกซ้าย-ขวา -->
+            <div class="flex justify-between items-center text-sm text-gray-500 border-t pt-3 mt-3 border-gray-100">
+                
+                <!-- ซ้าย: ดาวแสดงจำนวนบันทึก (Popularity Counter) -->
+                <span class="flex items-center text-gray-500">
+                    <!-- Star for display only (filled yellow) -->
+                    <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <span class="count-value font-semibold text-gray-700">1</span> บันทึก
+                </span>
+                
+                <!-- ขวา: ดาวสำหรับกดบันทึก/ยกเลิก (User Save Toggle) -->
+                <span class="user-save-toggle cursor-pointer p-1 -m-1 rounded-full hover:bg-pink-100 transition" data-saved="false">
+                    <!-- Outlined Star SVG for the unsaved state -->
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.54 1.118l-3.976-2.888a1 1 0 00-1.175 0l-3.976 2.888c-.784.57-1.838-.197-1.539-1.118l1.519-4.674a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                </span>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // เลือกการ์ดการแจ้งเตือนทั้งหมด
+            const notificationCards = document.querySelectorAll('.notification-card');
+            const readAllButton = document.querySelector('.read-all');
+            const saveToggleAreas = document.querySelectorAll('.user-save-toggle'); // เลือกพื้นที่สำหรับคลิก 'บันทึก' (ดาวฝั่งขวา)
+
+            // SVG สำหรับดาวแบบเต็ม (Saved State)
+            const filledStarSVG = '<svg class="w-5 h-5 text-primary-pink" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>';
+            
+            // SVG สำหรับดาวแบบมีขอบ (Unsaved State)
+            const outlinedStarSVG = '<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.519 4.674c.3.921-.755 1.688-1.54 1.118l-3.976-2.888a1 1 0 00-1.175 0l-3.976 2.888c-.784.57-1.838-.197-1.539-1.118l1.519-4.674a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.381-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>';
+
+
+            /**
+             * ฟังก์ชันเพื่อทำเครื่องหมายว่าการ์ดเดียวถูกอ่านแล้ว
+             * @param {HTMLElement} cardElement - องค์ประกอบของการ์ด
+             */
+            const markSingleCardAsRead = (cardElement) => {
+                if (!cardElement) return;
+
+                // 1. ค้นหาป้าย 'ใหม่' ภายในบัตร
+                const badge = cardElement.querySelector('.new-badge');
+
+                if (badge) {
+                    // 2. ลบป้าย
+                    badge.remove();
+
+                    // 3. ปรับสไตล์เพื่อบ่งบอกว่าอ่านแล้ว (ทำให้จางลง)
+                    cardElement.classList.add('opacity-60', 'hover:opacity-100', 'hover:shadow-lg', 'bg-gray-50', 'ring-1', 'ring-gray-200');
+                    cardElement.classList.remove('shadow-lg', 'hover:shadow-xl', 'bg-white');
+                }
+            };
+
+            // 1. ตั้งค่าตัวฟังเหตุการณ์คลิกสำหรับการ์ดแต่ละใบ (ทำเครื่องหมายว่าอ่านแล้ว)
+            notificationCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    markSingleCardAsRead(this);
+                });
+            });
+
+            // 2. ตั้งค่าตัวฟังเหตุการณ์คลิกสำหรับปุ่ม "อ่านทั้งหมด"
+            readAllButton.addEventListener('click', () => {
+                notificationCards.forEach(card => {
+                    markSingleCardAsRead(card);
+                });
+
+                // แสดงผลการยืนยันบนปุ่มชั่วคราว
+                const originalText = readAllButton.innerHTML;
+                readAllButton.innerHTML = '<span class="hidden sm:inline">✔</span> อ่านทั้งหมดแล้ว!';
+                readAllButton.classList.remove('bg-white', 'hover:bg-pink-100'); // Changed from primary-pink
+                readAllButton.classList.add('bg-green-600', 'text-white', 'cursor-default'); // Added text-white
+                readAllButton.disabled = true;
+
+                // รีเซ็ตปุ่มหลังจาก 2 วินาที
+                setTimeout(() => {
+                    readAllButton.innerHTML = originalText;
+                    readAllButton.classList.remove('bg-green-600', 'text-white', 'cursor-default');
+                    readAllButton.classList.add('bg-white', 'hover:bg-pink-100'); // Changed back to white/pink
+                    readAllButton.disabled = false;
+                }, 2000);
+            });
+
+
+            // 3. เพิ่มฟังก์ชันการคลิกที่ปุ่ม 'บันทึก' (ดาวฝั่งขวา)
+            saveToggleAreas.forEach(area => {
+                area.addEventListener('click', (event) => {
+                    // ป้องกันการคลิกดาวไม่ให้ถือว่าเป็นการ 'อ่าน' การ์ด
+                    event.stopPropagation();
+
+                    // หา count-value ที่อยู่ในการ์ดเดียวกัน (ดาวฝั่งซ้าย)
+                    const card = area.closest('.notification-card');
+                    if (!card) return;
+
+                    const countElement = card.querySelector('.count-value');
+                    
+                    if (countElement) {
+                        let currentCount = parseInt(countElement.textContent) || 0;
+
+                        // *** LOGIC ใหม่: เพิ่มตัวเลขได้เรื่อยๆ ทุกครั้งที่คลิก ***
+                        currentCount += 1;
+                        
+                        // อัปเดตตัวเลขดาวฝั่งซ้าย
+                        countElement.textContent = currentCount;
+                        
+                        // ตั้งค่าให้ดาวฝั่งขวาเป็นดาวแบบเต็ม (Saved State) เสมอ
+                        area.setAttribute('data-saved', 'true');
+                        area.innerHTML = filledStarSVG; 
+
+                        // เพิ่ม/ลบแอนิเมชันเพื่อให้มีผลตอบรับ
+                        area.classList.add('animate-pulse-once');
+                        setTimeout(() => {
+                            area.classList.remove('animate-pulse-once');
+                        }, 300); // 0.3s duration
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
